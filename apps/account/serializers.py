@@ -15,14 +15,14 @@ def send_confirmation_email(code, email):
         [email]  # to
     )
 
-
-def send_password(email, password, ):
-    send_mail(
-        'from homeWorkProject',  # topic
-        password,  # content
-        'esenturdildebekov8@gmail.com',  # from
-        [email]  # to
-    )
+#
+# def send_password(email, password, ):
+#     send_mail(
+#         'from homeWorkProject',  # topic
+#         password,  # content
+#         'esenturdildebekov8@gmail.com',  # from
+#         [email]  # to
+#     )
 
 
 class RegisterSerializer(serializers.ModelSerializer):

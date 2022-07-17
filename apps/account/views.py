@@ -15,6 +15,7 @@ class RegisterAPIView(APIView):
             serializers.save()
             return (Response('Вы успешно зареганы и вам отправлен email c активационным кодом', status=201))
 
+
 class ActivationView(APIView):
     def get(self, request, activation_code):
         try:
@@ -22,24 +23,26 @@ class ActivationView(APIView):
             user.is_active = True
             user.activation_code = ''
             user.save()
-            return Response({'msg': 'Аккаунт успешно активирован, т.к. перешел по ссылке и сделал GET запрос'}, status=200)
+            return Response({'msg': 'Аккаунт успешно активирован, т.к. перешел по ссылке и сделал GET запрос'},
+                            status=200)
         except User.DoesNotExist:
             return Response({'msg': 'Неверный активационный код!'}, status=400)
 
+
 class LoginApiView(ObtainAuthToken):
     serializer_class = LoginSerializer
+
 
 class ChangePasswordView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
         serializers = ChangePasswordSerializer(data=request.data,
-                                                   context={'request': request})
+                                               context={'request': request})
 
         serializers.is_valid(raise_exception=True)
         serializers.set_new_password()
         return Response('Пароль успешно изменен!')
-
 
 # class ForgotPasswordView(APIView):
 #     def post(self, request):
